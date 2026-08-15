@@ -1,0 +1,51 @@
+-- =========================================================
+-- SALES ANALYTICS PROJECT
+-- 03 - Region Analysis
+-- =========================================================
+
+USE sales_analytics;
+
+-- 1. Sales by region
+SELECT
+    region,
+    ROUND(SUM(sales), 2) AS total_sales
+FROM sales
+GROUP BY region
+ORDER BY total_sales DESC;
+
+-- 2. Profit by region
+SELECT
+    region,
+    ROUND(SUM(profit), 2) AS total_profit
+FROM sales
+GROUP BY region
+ORDER BY total_profit DESC;
+
+-- 3. Quantity by region
+SELECT
+    region,
+    SUM(quantity) AS total_quantity
+FROM sales
+GROUP BY region
+ORDER BY total_quantity DESC;
+
+-- 4. Sales by state
+SELECT
+    state,
+    ROUND(SUM(sales), 2) AS total_sales
+FROM sales
+GROUP BY state
+ORDER BY total_sales DESC;
+
+-- 5. Regional performance summary
+SELECT
+    region,
+    COUNT(DISTINCT order_id) AS total_orders,
+    SUM(quantity) AS total_quantity,
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(cost), 2) AS total_cost,
+    ROUND(SUM(profit), 2) AS total_profit,
+    ROUND((SUM(profit) / NULLIF(SUM(sales), 0)) * 100, 2) AS profit_margin_percentage
+FROM sales
+GROUP BY region
+ORDER BY total_sales DESC;
