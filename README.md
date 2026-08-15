@@ -51,7 +51,6 @@ Sales-Analytics-Dashboard/
 │   └── Sales_Data_Cleaning.csv
 │
 ├── sql/
-|   ├── README.md
 │   ├── 01_basic_analysis.sql
 │   ├── 02_category_analysis.sql
 │   ├── 03_region_analysis.sql
