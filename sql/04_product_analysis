@@ -1,0 +1,56 @@
+-- =========================================================
+-- SALES ANALYTICS PROJECT
+-- 04 - Product Analysis
+-- =========================================================
+
+USE sales_analytics;
+
+-- 1. Top 10 products by sales
+SELECT
+    product_name,
+    ROUND(SUM(sales), 2) AS total_sales
+FROM sales
+GROUP BY product_name
+ORDER BY total_sales DESC
+LIMIT 10;
+
+-- 2. Top 10 products by profit
+SELECT
+    product_name,
+    ROUND(SUM(profit), 2) AS total_profit
+FROM sales
+GROUP BY product_name
+ORDER BY total_profit DESC
+LIMIT 10;
+
+-- 3. Top 10 products by quantity
+SELECT
+    product_name,
+    SUM(quantity) AS total_quantity
+FROM sales
+GROUP BY product_name
+ORDER BY total_quantity DESC
+LIMIT 10;
+
+-- 4. Product performance summary
+SELECT
+    product_id,
+    product_name,
+    category,
+    SUM(quantity) AS total_quantity,
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(cost), 2) AS total_cost,
+    ROUND(SUM(profit), 2) AS total_profit
+FROM sales
+GROUP BY product_id, product_name, category
+ORDER BY total_sales DESC;
+
+-- 5. Top 10 customers by sales
+SELECT
+    customer_id,
+    customer_name,
+    ROUND(SUM(sales), 2) AS total_sales
+FROM sales
+GROUP BY customer_id, customer_name
+ORDER BY total_sales DESC
+LIMIT 10;
