@@ -1,0 +1,55 @@
+-- =========================================================
+-- SALES ANALYTICS PROJECT
+-- 05 - Profit Analysis
+-- =========================================================
+
+USE sales_analytics;
+
+-- 1. Overall profit margin
+SELECT
+    ROUND((SUM(profit) / NULLIF(SUM(sales), 0)) * 100, 2) AS profit_margin_percentage
+FROM sales;
+
+-- 2. Profit by category
+SELECT
+    category,
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(profit), 2) AS total_profit,
+    ROUND((SUM(profit) / NULLIF(SUM(sales), 0)) * 100, 2) AS profit_margin_percentage
+FROM sales
+GROUP BY category
+ORDER BY total_profit DESC;
+
+-- 3. Profit by region
+SELECT
+    region,
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(profit), 2) AS total_profit,
+    ROUND((SUM(profit) / NULLIF(SUM(sales), 0)) * 100, 2) AS profit_margin_percentage
+FROM sales
+GROUP BY region
+ORDER BY total_profit DESC;
+
+-- 4. Cost versus sales
+SELECT
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(cost), 2) AS total_cost,
+    ROUND(SUM(sales) - SUM(cost), 2) AS calculated_profit,
+    ROUND(SUM(profit), 2) AS recorded_profit
+FROM sales;
+
+-- 5. Highest-profit products
+SELECT
+    product_name,
+    ROUND(SUM(profit), 2) AS total_profit
+FROM sales
+GROUP BY product_name
+ORDER BY total_profit DESC
+LIMIT 10;
+
+-- 6. Discount analysis
+SELECT
+    ROUND(AVG(discount), 2) AS average_discount,
+    ROUND(MIN(discount), 2) AS minimum_discount,
+    ROUND(MAX(discount), 2) AS maximum_discount
+FROM sales;
