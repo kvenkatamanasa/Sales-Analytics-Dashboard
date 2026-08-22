@@ -182,13 +182,6 @@ The Power BI dashboard contains the following major visualizations:
 
 ---
 
-## 11. Dashboard Screenshots
-
-### Sales & Profit Performance Overview
-
-![Sales Analysis Dashboard](screenshots/Sales_Analysis_Dashboard.png)
-
----
 
 ## 12. Business Insights
 
