@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Sales Analytics Dashboard - Data Analytics project using Power BI, SQL and Excel by Kammineni Venkata Manasa.">
+
+    <meta name="keywords"
+          content="Sales Analytics, Power BI, SQL, Excel, Data Analytics, Dashboard, Business Intelligence">
+
+    <meta name="author" content="Kammineni Venkata Manasa">
+
+    <title>Sales Analytics Dashboard | Manasa</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b1020;
+            color: #f5f7fb;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 16, 32, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #252d45;
+        }
+
+        .nav-container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #6ea8fe;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #c7cede;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #6ea8fe;
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 1150px;
+            margin: auto;
+            padding: 100px 25px 80px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 15px;
+            border: 1px solid #34415f;
+            border-radius: 30px;
+            color: #9db8ee;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 68px);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #6ea8fe;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: auto;
+            color: #b6bfd2;
+            font-size: 18px;
+        }
+
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 13px 23px;
+            border-radius: 8px;
+            border: 1px solid #34415f;
+            background: #151d33;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            border-color: #6ea8fe;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+
+        /* GENERAL */
+        section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 75px 25px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #9ba6bb;
+        }
+
+        /* OVERVIEW */
+        .overview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #121a2d;
+            border: 1px solid #252d45;
+            border-radius: 14px;
+            padding: 25px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: #e9edf7;
+        }
+
+        .card p {
+            color: #aeb8cb;
+        }
+
+        /* TECHNOLOGY */
+        .tech-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tech {
+            background: #151d33;
+            border: 1px solid #2c3855;
+            padding: 11px 18px;
+            border-radius: 30px;
+            color: #cbd5e8;
+        }
+
+        /* DASHBOARD */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            background: #121a2d;
+            border: 1px solid #252d45;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .dashboard-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .dashboard-info {
+            padding: 20px;
+        }
+
+        .dashboard-info h3 {
+            margin-bottom: 7px;
+        }
+
+        .dashboard-info p {
+            color: #aeb8cb;
+        }
+
+        /* INSIGHTS */
+        .insights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .insight {
+            background: #121a2d;
+            border-left: 4px solid #6ea8fe;
+            padding: 22px;
+            border-radius: 10px;
+        }
+
+        .insight p {
+            color: #b5bfd1;
+        }
+
+        /* FILES */
+        .files {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .file-card {
+            background: #121a2d;
+            border: 1px solid #252d45;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .file-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .file-card p {
+            color: #aeb8cb;
+            margin-bottom: 15px;
+        }
+
+        .file-link {
+            display: inline-block;
+            color: #75aaff;
+            font-weight: bold;
+        }
+
+        .file-link:hover {
+            text-decoration: underline;
+        }
+
+        /* CONTACT */
+        .contact {
+            text-align: center;
+            background: #10182b;
+            border: 1px solid #252d45;
+            border-radius: 16px;
+            padding: 50px 25px;
+        }
+
+        .contact p {
+            color: #b4bed0;
+            margin: 12px auto 25px;
+            max-width: 650px;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid #252d45;
+            text-align: center;
+            padding: 30px 20px;
+            color: #8792a8;
+        }
+
+        /* MOBILE */
+        @media (max-width: 800px) {
+            .nav-links {
+                display: none;
+            }
+
+            .overview,
+            .dashboard-grid,
+            .insights,
+            .files {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 70px;
+            }
+
+            section {
+                padding: 55px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">Manasa<span>.</span></div>
+
+        <ul class="nav-links">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#insights">Insights</a></li>
+            <li><a href="#files">Files</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+<header class="hero">
+
+    <div class="badge">Data Analytics Project</div>
+
+    <h1>
+        Sales Analytics<br>
+        <span>Dashboard</span>
+    </h1>
+
+    <p>
+        An interactive business analytics project developed using
+        Power BI, SQL and Excel to analyze sales performance,
+        profitability, products, customers and regional trends.
+    </p>
+
+    <div class="buttons">
+
+        <a class="btn btn-primary"
+           href="#dashboard">
+            View Dashboard
+        </a>
+
+        <a class="btn"
+           href="powerbi/Sales_Analysis_Dashboard.pdf"
+           target="_blank">
+            View PDF Report
+        </a>
+
+        <a class="btn"
+           href="https://github.com/kvenkatamanasa"
+           target="_blank">
+            GitHub
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- OVERVIEW -->
+<section id="overview">
+
+    <div class="section-title">
+        <h2>Project Overview</h2>
+
+        <p>
+            Turning raw sales data into actionable business insights.
+        </p>
+    </div>
+
+    <div class="overview">
+
+        <div class="card">
+            <h3>Business Problem</h3>
+
+            <p>
+                Businesses need to understand sales performance,
+                product demand, customer behavior, regional trends
+                and profitability to make better decisions.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Solution</h3>
+
+            <p>
+                The project cleans and analyzes sales data using
+                SQL and Excel and presents meaningful insights
+                through an interactive Power BI dashboard.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Outcome</h3>
+
+            <p>
+                The dashboard provides a clear view of sales,
+                profit, products, customers and regional performance
+                to support data-driven decision making.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TECHNOLOGIES -->
+<section>
+
+    <div class="section-title">
+        <h2>Tools & Technologies</h2>
+
+        <p>
+            Technologies used throughout the analytics workflow.
+        </p>
+    </div>
+
+    <div class="tech-grid">
+
+        <span class="tech">Power BI</span>
+        <span class="tech">SQL</span>
+        <span class="tech">Excel</span>
+        <span class="tech">Data Cleaning</span>
+        <span class="tech">Data Analysis</span>
+        <span class="tech">Business Intelligence</span>
+        <span class="tech">Data Visualization</span>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+
+    <div class="section-title">
+
+        <h2>Power BI Dashboard</h2>
+
+        <p>
+            Dashboard views created for sales and business analysis.
+        </p>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+
+            <img
+                src="screenshots/dashboard_overview.png"
+                alt="Sales dashboard overview"
+                loading="lazy"
+            >
+
+            <div class="dashboard-info">
+
+                <h3>Dashboard Overview</h3>
+
+                <p>
+                    Overall sales performance and key business
+                    metrics presented in a consolidated dashboard.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <img
+                src="screenshots/product_customer_analysis.png"
+                alt="Product and customer analysis"
+                loading="lazy"
+            >
+
+            <div class="dashboard-info">
+
+                <h3>Product & Customer Analysis</h3>
+
+                <p>
+                    Analysis of product performance and customer
+                    purchasing patterns.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <img
+                src="screenshots/sales_regional_analysis.png"
+                alt="Sales regional analysis"
+                loading="lazy"
+            >
+
+            <div class="dashboard-info">
+
+                <h3>Sales & Regional Analysis</h3>
+
+                <p>
+                    Comparison of sales performance across different
+                    regions and business segments.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INSIGHTS -->
+<section id="insights">
+
+    <div class="section-title">
+
+        <h2>Business Insights</h2>
+
+        <p>
+            Key areas explored through the analysis.
+        </p>
+
+    </div>
+
+    <div class="insights">
+
+        <div class="insight">
+            <h3>Sales Performance</h3>
+            <p>
+                Identify sales trends and understand overall
+                business performance over time.
+            </p>
+        </div>
+
+        <div class="insight">
+            <h3>Product Performance</h3>
+            <p>
+                Determine which products contribute most to
+                sales and profitability.
+            </p>
+        </div>
+
+        <div class="insight">
+            <h3>Regional Performance</h3>
+            <p>
+                Compare regional sales performance and identify
+                stronger and weaker markets.
+            </p>
+        </div>
+
+        <div class="insight">
+            <h3>Profitability</h3>
+            <p>
+                Analyze profit contribution and identify areas
+                where business performance can be improved.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROJECT FILES -->
+<section id="files">
+
+    <div class="section-title">
+
+        <h2>Project Resources</h2>
+
+        <p>
+            Explore the supporting files used in this project.
+        </p>
+
+    </div>
+
+    <div class="files">
+
+        <div class="file-card">
+
+            <h3>Power BI Report</h3>
+
+            <p>
+                Complete Power BI dashboard file.
+            </p>
+
+            <a
+                class="file-link"
+                href="powerbi/Sales_Analysis_Dashboard.pbix"
+                download>
+                Download PBIX →
+            </a>
+
+        </div>
+
+
+        <div class="file-card">
+
+            <h3>PDF Report</h3>
+
+            <p>
+                PDF version of the Power BI dashboard.
+            </p>
+
+            <a
+                class="file-link"
+                href="powerbi/Sales_Analysis_Dashboard.pdf"
+                target="_blank">
+                Open PDF →
+            </a>
+
+        </div>
+
+
+        <div class="file-card">
+
+            <h3>SQL Analysis</h3>
+
+            <p>
+                SQL queries used for sales, category,
+                region, product and profit analysis.
+            </p>
+
+            <a
+                class="file-link"
+                href="sql/01_basic_analysis.sql"
+                target="_blank">
+                View SQL →
+            </a>
+
+        </div>
+
+
+        <div class="file-card">
+
+            <h3>Raw Dataset</h3>
+
+            <p>
+                Original sales dataset used for analysis.
+            </p>
+
+            <a
+                class="file-link"
+                href="data/raw_sales_data.csv"
+                download>
+                Download CSV →
+            </a>
+
+        </div>
+
+
+        <div class="file-card">
+
+            <h3>Cleaned Dataset</h3>
+
+            <p>
+                Cleaned sales data prepared for analytics.
+            </p>
+
+            <a
+                class="file-link"
+                href="data/Sales_Data_Cleaning.csv"
+                download>
+                Download CSV →
+            </a>
+
+        </div>
+
+
+        <div class="file-card">
+
+            <h3>Excel Analysis</h3>
+
+            <p>
+                Final cleaned Excel dataset used during
+                the analytics workflow.
+            </p>
+
+            <a
+                class="file-link"
+                href="excel/Sales_Data_Cleaning_Final.xlsx"
+                download>
+                Download Excel →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+
+    <div class="contact">
+
+        <h2>Let's Connect</h2>
+
+        <p>
+            Interested in data analytics, business intelligence
+            and transforming data into meaningful insights?
+            Feel free to connect with me.
+        </p>
+
+        <div class="buttons">
+
+            <a
+                class="btn btn-primary"
+                href="mailto:kvenkatamanasa@gmail.com">
+                Email Me
+            </a>
+
+            <a
+                class="btn"
+                href="https://www.linkedin.com/in/kamminenivenkatamanasa/"
+                target="_blank">
+                LinkedIn
+            </a>
+
+            <a
+                class="btn"
+                href="https://github.com/kvenkatamanasa"
+                target="_blank">
+                GitHub
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <p>
+        © 2026 Kammineni Venkata Manasa. Sales Analytics Dashboard.
+    </p>
+
+</footer>
+
+</body>
+</html>
