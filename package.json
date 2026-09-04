@@ -1,0 +1,9 @@
+{
+  "name": "sales-analytics-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sales Analytics Dashboard portfolio project using Power BI, SQL and Excel",
+  "scripts": {
+    "start": "npx serve ."
+  }
+}
